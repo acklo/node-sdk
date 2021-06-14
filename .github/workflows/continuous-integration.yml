@@ -34,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-sdk-yarn-
 
       - name: Install node dependencies
-        run: yarn install --frozen-lockfile --non-interactive
+        run: yarn install --immutable
 
       - name: Run linters
         run: yarn prettier --check . && yarn lint
