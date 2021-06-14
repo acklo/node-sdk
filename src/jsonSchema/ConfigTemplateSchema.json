@@ -1,0 +1,75 @@
+{
+  "description": "acklo configuration file - defines an application's configuration so that it may be remotely configured using acklo.\n\nFor more information check out the [acklo docs](https://acklo.app/docs).",
+  "definitions": {
+    "configuration": {
+      "type": "object",
+      "description": "Configuration of an application.",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifies the configuration.\n\n@example\n`feature_switches`",
+          "example": "feature_switches"
+        },
+        "name": {
+          "type": "string",
+          "description": "A human readable name for this configuration.\n\nThis will appear on the acklo dashboard.\n\n@example\n`Feature switches`",
+          "example": "Feature switches"
+        },
+        "description": {
+          "type": "string",
+          "description": "An expanded description of what this configuration group does.\n\nThis will appear on the acklo dashboard.",
+          "example": "Lets you enable/disable feature switches on the app"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "type", "default"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Identifies this configuration property.\n\n@example\n`new_header`",
+                "example": "feature_switches"
+              },
+              "name": {
+                "type": "string",
+                "description": "A human readable name for this configuration property.\n\nThis will appear on the acklo dashboard.\n\n@example\n`New header`",
+                "example": "Feature switches"
+              },
+              "type": {
+                "type": "string",
+                "description": "The type of configuration property this is (i.e. boolean, string, number, etc).\n\nPossible values are:\n- `boolean`\n- `string`\n- `number`\n\n@example\n`string`",
+                "enum": ["string", "boolean", "number"]
+              },
+              "default": {
+                "type": ["string", "boolean", "number", "null"],
+                "description": "The default value for this configuration property. If no custom configuration has been set\nin the acklo UI, or if the application using the SDK fails to connect to the acklo servers, this\ndefault value will be used instead.\n\n@example\n`true`"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": {
+      "description": "The version of this file's syntax, used for backwards compatibility.\n\n@example\n`v1`\n\n@default\n`v1`",
+      "example": "v1",
+      "default": "v1",
+      "type": ["string", "number"]
+    },
+    "configuration": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/configuration"
+      },
+      "description": "A list of configurations for the application being integrated with acklo."
+    }
+  }
+}

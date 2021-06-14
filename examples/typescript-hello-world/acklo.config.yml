@@ -1,0 +1,9 @@
+version: v1
+configuration:
+  - id: config
+    name: General configuration
+    properties:
+      - id: greeting
+        name: Greeting
+        type: string
+        default: Hello

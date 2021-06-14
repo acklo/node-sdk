@@ -1,0 +1,34 @@
+{
+  "include": ["./src", "gulpfile.ts"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+
+    "target": "es6",
+    "lib": ["es7"],
+
+    "importHelpers": true,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": true,
+
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "outDir": "./dist",
+    "baseUrl": "./"
+  }
+}

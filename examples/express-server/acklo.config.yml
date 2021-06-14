@@ -1,0 +1,20 @@
+version: v1
+configuration:
+  - id: config
+    name: General configuration
+    properties:
+      - id: port
+        name: HTTP port
+        type: number
+        default: 3001
+      - id: motd
+        name: Message of the day
+        type: string
+        default: Be good to each other
+  - id: switches
+    name: Feature switches
+    properties:
+      - id: maximize_excitement
+        name: Maximize exitement
+        type: boolean
+        default: false

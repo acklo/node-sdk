@@ -1,0 +1,14 @@
+{
+  "entryPoints": [
+    "src/AckloClient.ts",
+    "src/Errors.ts",
+    "src/ConfigTemplate.ts"
+  ],
+  "exclude": ["**/__tests__/**", "src/test/**"],
+  "tsconfig": "tsconfig.build.json",
+  "out": "docs_website",
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "theme": "./typedoc_theme",
+  "name": "acklo Node.js SDK docs"
+}

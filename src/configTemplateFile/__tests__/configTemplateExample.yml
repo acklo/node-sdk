@@ -1,0 +1,27 @@
+---
+version: v1
+configuration:
+  - id: app_config
+    name: App config
+    description: Key configuration for the app.
+    properties:
+      - id: log_level
+        name: Log level
+        type: string
+        default: trace
+      - id: port
+        name: Server port
+        type: number
+        default: 3000
+  - id: feature_switches
+    name: Feature switches
+    description: Feature switches for the app.
+    properties:
+      - id: motd
+        name: Message of the day
+        type: string
+        default: Be good to each other.
+      - id: new_header
+        name: Show new header
+        type: boolean
+        default: false

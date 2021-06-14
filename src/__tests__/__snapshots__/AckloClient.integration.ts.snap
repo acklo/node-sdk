@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`acklo (integration) when the config template has an error in it exits with a friendly error message 1`] = `
+Array [
+  "[acklo:error] The contents of the acklo config template file (acklo.config.yml) could not be parsed.
+[acklo:error]     
+[acklo:error] Check the ConfigTemplate docs and make sure that your template matches the expected format:
+[acklo:error] https://acklo.app/docs/nodejs_sdk/modules/configtemplate.html
+",
+]
+`;

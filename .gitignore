@@ -1,0 +1,18 @@
+dist
+node_modules
+.DS_Store
+package.tgz
+coverage
+
+# Ignore generated TypeDoc output
+docs_website
+docs_website.tar.gz
+
+# Via https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfigTemplateFile converts json string to a ConfigTemplate 1`] = `
+Object {
+  "configuration": Array [
+    Object {
+      "description": "Key configuration for the app.",
+      "id": "app_config",
+      "name": "App config",
+      "properties": Array [
+        Object {
+          "default": "trace",
+          "id": "log_level",
+          "name": "Log level",
+          "type": "string",
+        },
+        Object {
+          "default": 3000,
+          "id": "port",
+          "name": "Server port",
+          "type": "number",
+        },
+      ],
+    },
+    Object {
+      "description": "Feature switches for the app.",
+      "id": "feature_switches",
+      "name": "Feature switches",
+      "properties": Array [
+        Object {
+          "default": "Be good to each other.",
+          "id": "motd",
+          "name": "Message of the day",
+          "type": "string",
+        },
+        Object {
+          "default": false,
+          "id": "new_header",
+          "name": "Show new header",
+          "type": "boolean",
+        },
+      ],
+    },
+  ],
+  "version": "v1",
+}
+`;
+
+exports[`ConfigTemplateFile returns the config as JSON 1`] = `
+"{
+  \\"configuration\\": [
+    {
+      \\"description\\": \\"Key configuration for the app.\\",
+      \\"id\\": \\"app_config\\",
+      \\"name\\": \\"App config\\",
+      \\"properties\\": [
+        {
+          \\"default\\": \\"trace\\",
+          \\"id\\": \\"log_level\\",
+          \\"name\\": \\"Log level\\",
+          \\"type\\": \\"string\\"
+        },
+        {
+          \\"default\\": 3000,
+          \\"id\\": \\"port\\",
+          \\"name\\": \\"Server port\\",
+          \\"type\\": \\"number\\"
+        }
+      ]
+    },
+    {
+      \\"description\\": \\"Feature switches for the app.\\",
+      \\"id\\": \\"feature_switches\\",
+      \\"name\\": \\"Feature switches\\",
+      \\"properties\\": [
+        {
+          \\"default\\": \\"Be good to each other.\\",
+          \\"id\\": \\"motd\\",
+          \\"name\\": \\"Message of the day\\",
+          \\"type\\": \\"string\\"
+        },
+        {
+          \\"default\\": false,
+          \\"id\\": \\"new_header\\",
+          \\"name\\": \\"Show new header\\",
+          \\"type\\": \\"boolean\\"
+        }
+      ]
+    }
+  ],
+  \\"version\\": \\"v1\\"
+}"
+`;

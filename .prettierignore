@@ -1,0 +1,7 @@
+coverage
+dist
+node_modules
+src/quicktype/*.ts
+typedoc_theme
+docs_website
+.yarn

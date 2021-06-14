@@ -1,0 +1,10 @@
+{
+  "name": "@acklo/example-express-server",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@acklo/node-sdk": "^0.0.21",
+    "express": "^4.17.1"
+  }
+}
