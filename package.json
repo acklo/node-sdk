@@ -1,6 +1,6 @@
 {
   "name": "@acklo/node-sdk",
-  "version": "0.0.21",
+  "version": "0.1.0",
   "description": "Node.js SDK for https://acklo.app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,7 @@
   "homepage": "https://github.com/acklo/node-sdk",
   "bugs": "https://github.com/acklo/node-sdk/issues",
   "license": "Apache-2.0",
+  "private": false,
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "docs:generate": "rm -rf docs_website && typedoc",
@@ -64,5 +65,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
