@@ -4,7 +4,7 @@ Node.js SDK for [acklo](https://acklo.app).
 
 [🏠 acklo](https://acklo.app) | [🚀 Getting started guide](https://acklo.app/docs/quick_starts/getting_started_with_the_nodejs_sdk) | [📘 SDK documentation](https://acklo.app/docs/nodejs_sdk)
 
-![acklo's node SDK is hosted on NPM](https://img.shields.io/npm/v/@acklo/node-sdk?label=%40acklo%2Fnode-sdk)
+[![acklo's node SDK is hosted on NPM](https://img.shields.io/npm/v/@acklo/node-sdk?label=%40acklo%2Fnode-sdk)](https://www.npmjs.com/package/@acklo/node-sdk)
 
 ---
 
