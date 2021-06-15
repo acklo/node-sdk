@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "acklo (Alex Plescan)",
-  "repository": "@acklo/node-sdk",
+  "repository": "github:@acklo/node-sdk",
+  "homepage": "https://github.com/acklo/node-sdk",
+  "bugs": "https://github.com/acklo/node-sdk/issues",
   "license": "MIT",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
