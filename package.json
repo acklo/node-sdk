@@ -8,7 +8,7 @@
   "repository": "github:@acklo/node-sdk",
   "homepage": "https://github.com/acklo/node-sdk",
   "bugs": "https://github.com/acklo/node-sdk/issues",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "docs:generate": "rm -rf docs_website && typedoc",
