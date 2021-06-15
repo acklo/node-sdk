@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "author": "acklo (Alex Plescan)",
   "repository": "github:@acklo/node-sdk",
-  "homepage": "https://github.com/acklo/node-sdk",
+  "homepage": "https://acklo.app",
   "bugs": "https://github.com/acklo/node-sdk/issues",
   "license": "Apache-2.0",
   "private": false,
