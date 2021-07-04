@@ -2,9 +2,8 @@ const express = require("express");
 const AckloClient = require("@acklo/node-sdk").AckloClient;
 
 const acklo = new AckloClient({
-  applicationName: "acklo-express-server-example",
+  applicationKey: "[YOUR APPLICATION KEY]",
   environmentName: "local",
-  // accessToken: "[YOUR ACCESS TOKEN]",
 });
 
 acklo

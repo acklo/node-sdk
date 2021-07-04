@@ -9,6 +9,7 @@ export class CommandExecutionHandler
   kind = MessageKind.CommandExecution;
 
   constructor(
+    private readonly applicationKey: string,
     private readonly configTemplate: ConfigTemplateFile,
     private readonly apiClient: ApiClient
   ) {}
@@ -16,7 +17,10 @@ export class CommandExecutionHandler
   async handle(message: CommandExecutionMessage): Promise<void> {
     if (message.command.kind === "config_update") {
       const updates = this.configTemplate.updateValues(
-        await this.apiClient.getInstanceConfiguration(message.instanceId)
+        await this.apiClient.getInstanceConfiguration(
+          this.applicationKey,
+          message.instanceId
+        )
       );
 
       if (Object.keys(updates).length > 0) {

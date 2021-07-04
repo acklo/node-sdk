@@ -6,6 +6,7 @@ import { HeartbeatFailedError } from "../Errors";
 jest.useFakeTimers();
 
 describe("HeartbeatSender", () => {
+  const applicationKey = "acklo.app.4xdjucrpl33thaxxolRw";
   const instanceId = "abc123";
   const heartbeatInterval = 5_000;
 
@@ -15,6 +16,7 @@ describe("HeartbeatSender", () => {
   beforeEach(() => {
     apiClient = new ApiClient("", "");
     heartbeatSender = new HeartbeatSender(
+      applicationKey,
       instanceId,
       apiClient,
       heartbeatInterval
@@ -35,6 +37,7 @@ describe("HeartbeatSender", () => {
 
     expect(apiClient.sendInstanceHeartbeatWithRetries).toHaveBeenCalledTimes(1);
     expect(apiClient.sendInstanceHeartbeatWithRetries).toHaveBeenCalledWith(
+      applicationKey,
       instanceId,
       {
         cancelToken: expect.any(Axios.CancelToken),

@@ -27,7 +27,7 @@ describe("ApiClient", () => {
 
   describe("createInstance", () => {
     it("returns the instance details when a successful api request is made", async () => {
-      const applicationName = "app";
+      const applicationKey = "acklo.app.4xdjucrpl33thaxxolRw";
       const environmentName = "env";
       const rawConfigTemplateContent = YAML.stringify({ hey: "test" });
       const configTemplateContent = JSON.stringify(
@@ -44,23 +44,26 @@ describe("ApiClient", () => {
       mockedAxios.post.mockResolvedValueOnce({ data: response });
 
       const res = await apiClient.createInstance(
-        applicationName,
+        applicationKey,
         environmentName,
         configTemplateContent,
         rawConfigTemplateContent,
         "1.0.0"
       );
 
-      expect(mockedAxios.post).toHaveBeenCalledWith("/instances", {
-        application_name: applicationName,
-        environment_name: environmentName,
-        raw_config_template_content: rawConfigTemplateContent,
-        config_template_content: configTemplateContent,
-        config_template_content_type: "application/json",
-        sdk_name: "node-sdk",
-        sdk_version: "1.0.0",
-        tags: {},
-      });
+      expect(mockedAxios.post).toHaveBeenCalledWith(
+        "/instances",
+        {
+          environment_name: environmentName,
+          raw_config_template_content: rawConfigTemplateContent,
+          config_template_content: configTemplateContent,
+          config_template_content_type: "application/json",
+          sdk_name: "node-sdk",
+          sdk_version: "1.0.0",
+          tags: {},
+        },
+        { headers: { "x-acklo-app-key": applicationKey } }
+      );
 
       expect(res.id).toEqual(instanceId);
     });

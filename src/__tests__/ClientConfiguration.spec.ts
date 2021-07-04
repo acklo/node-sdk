@@ -6,7 +6,7 @@ describe("ClientConfiguration", () => {
     const providedConfig = { accessToken: "should-be-overriden" };
     const envVars = {
       ACKLO_ACCESS_TOKEN: "abc-123",
-      ACKLO_APPLICATION_NAME: "my-app",
+      ACKLO_APPLICATION_KEY: "acklo.app.4xdjucrpl33thaxxolRw",
       ACKLO_ENVIRONMENT_NAME: "my-env",
       ACKLO_PROFILE: "dev",
     };
@@ -16,7 +16,7 @@ describe("ClientConfiguration", () => {
       ClientConfiguration {
         "accessToken": "abc-123",
         "apiBaseUrl": "https://acklo.app/api",
-        "applicationName": "my-app",
+        "applicationKey": "acklo.app.4xdjucrpl33thaxxolRw",
         "autoTags": true,
         "environmentName": "my-env",
         "heartbeatInterval": 60000,
@@ -41,7 +41,7 @@ describe("ClientConfiguration", () => {
         `[Error: Missing required configuration properties]`
       );
       expect(err.humanReadableMessage).toMatchInlineSnapshot(
-        `"Missing values for required configuration properties: [applicationName, environmentName]. Please make sure to either provide as arguments to the acklo() constructor function, or as environment variables."`
+        `"Missing values for required configuration properties: [applicationKey, environmentName]. Please make sure to either provide as arguments to the acklo() constructor function, or as environment variables."`
       );
     }
     /* eslint-enable jest/no-conditional-expect, jest/no-try-expect */

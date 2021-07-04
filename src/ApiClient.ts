@@ -76,7 +76,7 @@ export class ApiClient {
   }
 
   async createInstance(
-    applicationName: string,
+    applicationKey: string,
     environmentName: string,
     configTemplateContent: string,
     rawConfigTemplateContent: string,
@@ -84,14 +84,13 @@ export class ApiClient {
     tags: Tags = {}
   ): Promise<ApiInstanceResponse> {
     logger.debug("Creating instance %o", {
-      applicationName,
+      applicationKey,
       environmentName,
       rawConfigContentLength: rawConfigTemplateContent.length,
     });
 
     try {
       const body: ApiCreateInstance = {
-        application_name: applicationName,
         environment_name: environmentName,
         raw_config_template_content: rawConfigTemplateContent,
         config_template_content_type: "application/json",
@@ -104,7 +103,7 @@ export class ApiClient {
       const res = await this.client.post<
         ApiCreateInstance,
         AxiosResponse<ApiInstanceResponse>
-      >("/instances", body);
+      >("/instances", body, { headers: { ...appKeyHeaders(applicationKey) } });
 
       this.ensureAttributeExists(res.data, "id");
       this.ensureAttributeExists(res.data, "name");
@@ -117,13 +116,17 @@ export class ApiClient {
   }
 
   async getInstanceConfiguration(
+    applicationKey: string,
     instanceId: string
   ): Promise<ConfigTemplateValuesRaw> {
     logger.debug("Getting configuration for instance with id: %s", instanceId);
 
     try {
-      return (await this.client.get(`/instances/${instanceId}/configuration`))
-        .data.configuration;
+      return (
+        await this.client.get(`/instances/${instanceId}/configuration`, {
+          headers: { ...appKeyHeaders(applicationKey) },
+        })
+      ).data.configuration;
     } catch (err) {
       handleApiError(
         err,
@@ -133,6 +136,7 @@ export class ApiClient {
   }
 
   async sendInstanceHeartbeat(
+    applicationKey: string,
     instanceId: string,
     options?: { cancelToken?: CancelToken }
   ): Promise<void> {
@@ -141,6 +145,7 @@ export class ApiClient {
     try {
       await this.client.post(`/instances/${instanceId}/heartbeat`, undefined, {
         cancelToken: options?.cancelToken,
+        headers: { ...appKeyHeaders(applicationKey) },
       });
     } catch (err) {
       if (axios.isCancel(err)) {
@@ -208,12 +213,17 @@ export class ApiClient {
   }
 
   async sendInstanceHeartbeatWithRetries(
+    applicationKey: string,
     instanceId: string,
     options?: { cancelToken?: CancelToken },
     backoff?: Backoff
   ): Promise<void> {
     try {
-      return await this.sendInstanceHeartbeat(instanceId, options);
+      return await this.sendInstanceHeartbeat(
+        applicationKey,
+        instanceId,
+        options
+      );
     } catch (err) {
       const maxRetryAttempts = 10;
 
@@ -242,6 +252,7 @@ export class ApiClient {
       await delay(duration);
 
       return await this.sendInstanceHeartbeatWithRetries(
+        applicationKey,
         instanceId,
         options,
         backoff
@@ -276,4 +287,8 @@ function handleApiError(err: unknown, fallbackMessage: string): never {
 
 function isAxiosError(error: unknown): error is AxiosError {
   return (error as AxiosError).isAxiosError !== undefined;
+}
+
+function appKeyHeaders(applicationKey: string): Record<string, string> {
+  return { "x-acklo-app-key": applicationKey };
 }

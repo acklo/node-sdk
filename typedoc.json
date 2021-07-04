@@ -2,7 +2,8 @@
   "entryPoints": [
     "src/AckloClient.ts",
     "src/Errors.ts",
-    "src/ConfigTemplate.ts"
+    "src/ConfigTemplate.ts",
+    "src/ClientConfiguration.ts"
   ],
   "exclude": ["**/__tests__/**", "src/test/**"],
   "tsconfig": "tsconfig.build.json",

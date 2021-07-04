@@ -8,9 +8,8 @@
  * ```js
  * // Create a new instance
  * const acklo = new AckloClient({
- *   applicationName: "my-app",
- *   environmentName: "local",
- *   accessToken: "acklo-123"
+ *   applicationKey: "[YOUR APPLICATION KEY]",
+ *   environmentName: "local"
  * });
  *
  * // Connect to acklo
@@ -65,9 +64,8 @@ const packageVersion = require("../package.json").version;
  * ```js
  * // Create a new instance
  * const acklo = new AckloClient({
- *   applicationName: "my-app",
- *   environmentName: "local",
- *   accessToken: "acklo-123"
+ *   applicationKey: "[YOUR APPLICATION KEY]",
+ *   environmentName: "local"
  * });
  *
  * // Connect to acklo
@@ -101,9 +99,8 @@ export class AckloClient {
    * ```js
    * // Create the instance
    * const acklo = new AckloClient({
-   *   applicationName: "my-app",
-   *   environmentName: "local",
-   *   accessToken: "acklo-123"
+   *   applicationKey: "[YOUR APPLICATION KEY]",
+   *   environmentName: "local"
    * });
    *
    * // This will be the default port configured in your acklo configuration file.
@@ -150,17 +147,15 @@ export class AckloClient {
    * ```js
    * // Using async/await
    * const acklo = await new AckloClient({
-   *   applicationName: "my-app",
-   *   environmentName: "local",
-   *   accessToken: "acklo-123"
+   *   applicationKey: "[YOUR APPLICATION KEY]",
+   *   environmentName: "local"
    * }).connect();
    *
    * // Using promises
    * const acklo =
    *   new AckloClient({
-   *     applicationName: "my-app",
-   *     environmentName: "local",
-   *     accessToken: "acklo-123"
+   *     applicationKey: "[YOUR APPLICATION KEY]",
+   *     environmentName: "local"
    *   })
    *  .connect()
    *  .then(() => console.log("Connected successfully"))
@@ -195,7 +190,7 @@ export class AckloClient {
         : {};
 
       this.instance = await this.apiClient.createInstance(
-        this.clientConfiguration.applicationName,
+        this.clientConfiguration.applicationKey,
         this.clientConfiguration.environmentName,
         this.configTemplate.toJSON(),
         this.configTemplate.rawContent,
@@ -204,10 +199,14 @@ export class AckloClient {
       );
 
       this.configTemplate.updateValues(
-        await this.apiClient.getInstanceConfiguration(this.instance.id)
+        await this.apiClient.getInstanceConfiguration(
+          this.clientConfiguration.applicationKey,
+          this.instance.id
+        )
       );
 
       this.heartbeatSender = new HeartbeatSender(
+        this.clientConfiguration.applicationKey,
         this.instance.id,
         this.apiClient,
         this.clientConfiguration.heartbeatInterval
@@ -225,7 +224,11 @@ export class AckloClient {
         this.clientConfiguration.webSocketBaseUrl
       );
       this.webSocketConnection.addHandler(
-        new CommandExecutionHandler(this.configTemplate, this.apiClient)
+        new CommandExecutionHandler(
+          this.clientConfiguration.applicationKey,
+          this.configTemplate,
+          this.apiClient
+        )
       );
       await this.webSocketConnection.connect(this.instance.id);
 
@@ -260,9 +263,8 @@ export class AckloClient {
    * @example
    * ```js
    * const acklo = await new AckloClient({
-   *   applicationName: "my-app",
-   *   environmentName: "local",
-   *   accessToken: "acklo-123"
+   *   applicationKey: "[YOUR APPLICATION KEY]",
+   *   environmentName: "local"
    * }).connect();
    *
    * await acklo.disconnect();

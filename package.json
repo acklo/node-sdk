@@ -9,7 +9,6 @@
   "homepage": "https://acklo.app",
   "bugs": "https://github.com/acklo/node-sdk/issues",
   "license": "Apache-2.0",
-  "private": false,
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "docs:generate": "rm -rf docs_website && typedoc",

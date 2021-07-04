@@ -16,6 +16,7 @@ export class HeartbeatSender {
   events = new EventEmitter();
 
   constructor(
+    private readonly applicationKey: string,
     private readonly instanceId: string,
     private readonly apiClient: ApiClient,
     private readonly heartbeatInterval: number
@@ -61,7 +62,7 @@ export class HeartbeatSender {
     this.cancelTokenSource = axios.CancelToken.source();
 
     this.apiClient
-      .sendInstanceHeartbeatWithRetries(this.instanceId, {
+      .sendInstanceHeartbeatWithRetries(this.applicationKey, this.instanceId, {
         cancelToken: this.cancelTokenSource.token,
       })
       .catch((err) => {

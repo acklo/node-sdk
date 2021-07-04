@@ -5,10 +5,12 @@ import { configureGlobalLoggerInstance } from "../Logger";
 import { stderr } from "process";
 import { mocked } from "ts-jest/utils";
 
-const TOKEN_ENV_VAR = "ACKLO_INTEGRATION_TEST_TOKEN";
-const token = process.env[TOKEN_ENV_VAR];
-if (!token) {
-  throw new Error(`Need ${TOKEN_ENV_VAR} env var set to run integration tests`);
+const APP_KEY_ENV_VAR = "ACKLO_INTEGRATION_TEST_APP_KEY";
+const applicationKey = process.env[APP_KEY_ENV_VAR];
+if (!applicationKey) {
+  throw new Error(
+    `Need ${APP_KEY_ENV_VAR} env var set to run integration tests`
+  );
 }
 
 describe("acklo (integration)", () => {
@@ -40,9 +42,8 @@ describe("acklo (integration)", () => {
 
     it("connects to the acklo api and retrieves config values", async () => {
       const instance = new AckloClient({
-        applicationName: "sdk-test-target",
-        environmentName: "integration-test",
-        accessToken: token,
+        applicationKey: applicationKey,
+        environmentName: "production",
       });
 
       expect(instance.getConfig()).toMatchInlineSnapshot(`
@@ -84,7 +85,7 @@ describe("acklo (integration)", () => {
 
       expect(instance.getInstanceName()).toMatch(/^ins-\w+-\w+-\w+$/);
       expect(instance.getInstanceUrl()).toMatch(
-        /^http.*applications\/sdk-test-target\/integration-test\/instances\/.*$/
+        /^http.*applications\/sdk-test-target\/production\/instances\/.*$/
       );
 
       await expect(instance.disconnect()).resolves.toBeInstanceOf(AckloClient);
@@ -97,9 +98,8 @@ describe("acklo (integration)", () => {
 
     it("returns defaults when the api cannot be reached", async () => {
       const instance = new AckloClient({
-        applicationName: "sdk-test-target",
-        environmentName: "integration-test",
-        accessToken: "not-a-valid-token",
+        applicationKey: "invalid-application-key",
+        environmentName: "production",
       });
 
       await expect(instance.connect()).resolves.toBe(instance);
@@ -119,7 +119,7 @@ describe("acklo (integration)", () => {
       expect(loggedLines.filter((l) => l.indexOf("acklo:error") > -1))
         .toMatchInlineSnapshot(`
       Array [
-        "[acklo:error] An invalid access token has been provided. Please configure your SDK with a valid access token.
+        "[acklo:error] An invalid application key has been provided. Please check your SDK's configuration.
       ",
       ]
     `);
@@ -144,9 +144,8 @@ describe("acklo (integration)", () => {
       stderrMock.mockReset();
 
       new AckloClient({
-        applicationName: "sdk-test-target",
-        environmentName: "integration-test",
-        accessToken: token,
+        applicationKey: applicationKey,
+        environmentName: "production",
       });
 
       expect(stderrMock.mock.calls[0]).toMatchSnapshot();
