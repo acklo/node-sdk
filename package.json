@@ -1,6 +1,6 @@
 {
   "name": "@acklo/node-sdk",
-  "version": "0.2.0-pre1",
+  "version": "0.2.0",
   "description": "Node.js SDK for https://acklo.app",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
