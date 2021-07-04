@@ -7,7 +7,6 @@ export interface ApiInstanceResponse {
 }
 
 export interface ApiCreateInstance {
-  application_name: string;
   environment_name: string;
   raw_config_template_content: string;
   config_template_content: string;

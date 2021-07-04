@@ -21,32 +21,19 @@ export type LogLevel = "off" | "error" | "warn" | "info" | "debug";
  * @example
  * ```js
  * {
- *   applicationName: "my-web-service",
+ *   applicationKey: "[YOUR APPLICATION KEY]",
  *   environmentName: "development"
  * }
  * ```
  */
 export interface ClientConfigurationProperties {
   /**
-   * The SDK access token for your acklo workspace. This is used to authenticate
-   * your application's access to your acklo workspace.
+   * Your application's unique key. This is used to identify this application by the SDK.
    *
-   * This token should be treated as a secret, so please don't commit it to your
-   * source code. Instead prefer injecting it via an environment variable.
-   *
-   * This can also be configured by setting the `ACKLO_ACCESS_TOKEN` environment
+   * This value can also be configured by setting the `ACKLO_APPLICATION_KEY` environment
    * variable.
    */
-  accessToken: string;
-
-  /**
-   * The name of your application. This is used to identify your application within
-   * your acklo workspace.
-   *
-   * This value can also be configured by setting the `ACKLO_APPLICATION_NAME` environment
-   * variable.
-   */
-  applicationName: string;
+  applicationKey: string;
 
   /**
    * The name of your application's environment. This is used to identify which environment
@@ -94,6 +81,22 @@ export interface ClientConfigurationProperties {
   autoTags: boolean;
 
   /**
+   * The SDK access token for your acklo workspace. This is used to authenticate
+   * your application's access to your acklo workspace.
+   *
+   * Note: this property is not yet generally available for use.
+   *
+   * This token should be treated as a secret, so please don't commit it to your
+   * source code. Instead prefer injecting it via an environment variable.
+   *
+   * This can also be configured by setting the `ACKLO_ACCESS_TOKEN` environment
+   * variable.
+   *
+   * @private
+   */
+  accessToken: string;
+
+  /**
    * The name of the locally stored profile to use for authenticating to acklo.
    *
    * Note: this property is not yet generally available for use.
@@ -107,8 +110,8 @@ export interface ClientConfigurationProperties {
 
 export class ClientConfiguration {
   readonly profile: ProfileName;
-  readonly accessToken: string;
-  readonly applicationName: string;
+  readonly accessToken: string | undefined;
+  readonly applicationKey: string;
   readonly environmentName: string;
   readonly logLevel: LogLevel;
   readonly tags: Tags;
@@ -130,19 +133,16 @@ export class ClientConfiguration {
 
     const profile = rcFile.profile(this.profile);
 
-    const accessToken =
+    this.accessToken =
       environment["ACKLO_ACCESS_TOKEN"] ||
       config.accessToken ||
       profile?.accessToken;
-    accessToken
-      ? (this.accessToken = accessToken)
-      : configErrors.push("accessToken");
 
-    const applicationName =
-      environment["ACKLO_APPLICATION_NAME"] || config.applicationName;
-    applicationName
-      ? (this.applicationName = applicationName)
-      : configErrors.push("applicationName");
+    const applicationKey =
+      environment["ACKLO_APPLICATION_KEY"] || config.applicationKey;
+    applicationKey
+      ? (this.applicationKey = applicationKey)
+      : configErrors.push("applicationKey");
 
     const environmentName =
       environment["ACKLO_ENVIRONMENT_NAME"] || config.environmentName;
@@ -173,6 +173,9 @@ export class ClientConfiguration {
   }
 }
 
+/**
+ * @private
+ */
 export function isLogLevel(thing: unknown): thing is LogLevel {
   if (typeof thing === "string") {
     return ["off", "error", "info", "debug"].includes(thing);

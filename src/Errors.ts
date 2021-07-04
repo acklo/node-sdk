@@ -51,8 +51,7 @@ export class MissingRequiredConfigurationValuesError extends HumanReadableError 
 }
 
 /**
- * Failed to connect to acklo. This is usually due to an invalid SDK access token
- * being provided.
+ * Failed to connect to acklo. This is usually due to invalid authentication.
  */
 export class ConnectionError extends HumanReadableError {
   constructor(underlyingError?: Error) {

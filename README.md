@@ -27,9 +27,8 @@ yarn add @acklo/node-sdk
 ```js
 // index.js
 const acklo = new require("@acklo/node-sdk").AckloClient({
-  applicationName: "my-app",
+  applicationKey: "[YOUR APPLICATION KEY]",
   environmentName: "local",
-  accessToken: "[Your SDK access token]",
 });
 
 await acklo.connect();
