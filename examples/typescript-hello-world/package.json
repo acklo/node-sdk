@@ -8,7 +8,7 @@
     "typescript": "^4.3.2"
   },
   "dependencies": {
-    "@acklo/node-sdk": "^0.0.21"
+    "@acklo/node-sdk": "^0.2.0-pre1"
   },
   "scripts": {
     "start": "ts-node index.ts"
