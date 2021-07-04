@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@acklo/node-sdk": "^0.0.21",
+    "@acklo/node-sdk": "^0.2.0-pre1",
     "express": "^4.17.1"
+  },
+  "scripts": {
+    "start": "node index.js"
   }
 }
